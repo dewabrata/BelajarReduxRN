@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux'
-import {userReducer,passReducer} from './reducername'
+import {userReducer,passReducer,registerFirebase} from './reducername'
 
 export default combineReducers({
-  userReducer,passReducer
+  userReducer,passReducer,registerFirebase
 
 })

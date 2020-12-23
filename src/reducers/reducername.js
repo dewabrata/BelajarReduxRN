@@ -35,3 +35,22 @@ export const userReducer = (state=defaultuserstate, action) => {
     }
 
   }
+  
+  
+  const userFirebase = {username:" ",password:" "}
+  export const registerFirebase = (state=userFirebase, action) => {
+  
+    
+    switch (action.type) {
+    case "SETRESULT" :
+    
+    return state= action.nilai
+  
+    default : 
+    return state
+    
+    
+    
+    }
+
+  }
