@@ -1,0 +1,9 @@
+
+
+export const TYPES = {
+
+     SET_USER_FIREBASE : "SETUSERFIREBASE",
+     SET_LOGIN_SUCCESS :"FIREBASELOGINSUCCESS"
+   
+
+}

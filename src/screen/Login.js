@@ -1,10 +1,18 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux'
 import {View,TextInput,Text,Button,StyleSheet} from 'react-native'
-import { setUsername ,setPassword} from '../action';
+import { loginFirebase } from '../action';
 
 class Login extends Component {
 
+
+  state = {
+  username:'',
+  password:''
+  
+  }
+
+  
 
 
   componentDidMount(){
@@ -17,13 +25,14 @@ class Login extends Component {
     render() {
         return (
             <View>
-                <Text>Hello {this.props.username} {this.props.password}</Text>
+                {this.props.isLogin? ( <Text> {this.props.username} {this.props.password}</Text>):null}
+               
                 <Text>Username</Text>
-                <TextInput name ="username" style = {styles.textInput} onChangeText={(text)=>this.props.sukasukagw({username:text})} />
+                <TextInput name ="username" style = {styles.textInput} onChangeText={(text)=>this.setState({username:text})} />
                 <Text>Password</Text>
                 <TextInput name ="password"  secureTextEntry={true} 
-                onChangeText={(text)=>this.props.setPassword({password:text}) } style = {styles.textInput} />
-                <Button title = "Login"/>
+                onChangeText={(text)=>this.setState({password:text})} style = {styles.textInput} />
+                <Button title = "Login" onPress={()=>this.props.loginFirebase(this.state.username,this.state.password)}/>
             </View>
         );
     }
@@ -31,22 +40,22 @@ class Login extends Component {
 
 
  const  mapStateToProps= (state) => {
-  console.log("ini state" ,state)
+
      return {
-     
-     username : state.userReducer.username,
-     password : state.passReducer.password
+     username : state.registerFirebase.username,
+     password : state.registerFirebase.password,
+     isLogin : state.registerFirebase.isLogin
      }
   
   }
   
   const mapDispatchToProps = (dispatch) =>{
   
-     console.log("ini dispatch", dispatch)
+  
   
     return{
-      sukasukagw : (text)=>dispatch(setUsername(text)),
-      setPassword : (text)=> dispatch(setPassword(text))
+      loginFirebase : (username, password) =>dispatch(loginFirebase(username,password)),
+      
     
     }
   }

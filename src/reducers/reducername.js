@@ -1,51 +1,30 @@
-
-const defaultuserstate = {username:'dewi'}
-
-const defaultpassstate = {password:'dewi'}
-export const userReducer = (state=defaultuserstate, action) => {
-  switch (action.type) {
-  
-  case "SETUSERNAME" :
-  
-  return state = action.username;
-
-
-
-  default : 
-  return state
+import { TYPES } from "../constanta"
+import AsyncStorage from '@react-native-async-storage/async-storage';
   
   
+const storeData = async (value) => {
+  try {
   
+    console.log("nilai storage",value);
+    const jsonValue = JSON.stringify(value)
+    await AsyncStorage.setItem('@firebaseuser', jsonValue)
+  } catch (e) {
+   console.log("error",e)
   }
-  
 }
-  export const passReducer = (state=defaultpassstate, action) => {
-    switch (action.type) {
-    
-    
   
-    case "SETPASSWORD" :
-    return state.password = action.password;
-  
-    default : 
-    return state
-    
-    
-    
-    }
-
-  }
-  
-  
-  const userFirebase = {username:" ",password:" "}
+  const userFirebase = {username:"",password:"",isLogin:false}
   export const registerFirebase = (state=userFirebase, action) => {
   
     
     switch (action.type) {
-    case "SETRESULT" :
+    case TYPES.SET_USER_FIREBASE :
+    storeData(action.nilai)
+    return {...state, username: action.nilai.username,password: action.nilai.password,isLogin: action.nilai.isLogin}
     
-    return state= action.nilai
-  
+    case TYPES.SET_LOGIN_SUCCESS :
+    storeData(action.success)
+    return {...state, username: action.success.username,password: action.success.password,isLogin: action.success.isLogin}
     default : 
     return state
     
